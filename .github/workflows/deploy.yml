@@ -19,7 +19,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        aws-region: us-east-1  # or use: ${{ secrets.AWS_REGION }}
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
@@ -30,5 +30,11 @@ jobs:
 
     - name: Terraform Apply
       working-directory: infra/terraform
-      run: terraform apply -auto-approve -var="image_url=${{ secrets.ECR_IMAGE_URL }}"
-
+      run: terraform apply -auto-approve \
+        -var="aws_region=us-east-1" \
+        -var="cluster_name=${{ secrets.ECS_CLUSTER_NAME }}" \
+        -var="image_url=${{ secrets.ECR_IMAGE_URL }}" \
+        -var="execution_role_arn=${{ secrets.ECS_EXECUTION_ROLE_ARN }}" \
+        -var="task_role_arn=${{ secrets.ECS_TASK_ROLE_ARN }}" \
+        -var='subnet_ids=${{ secrets.SUBNET_IDS }}' \
+        -var="security_group_id=${{ secrets.SECURITY_GROUP_ID }}"
