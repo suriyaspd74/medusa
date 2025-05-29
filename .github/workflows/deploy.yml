@@ -31,10 +31,3 @@ jobs:
     - name: Terraform Apply
       working-directory: infra/terraform
       run: terraform apply -auto-approve \
-        -var="aws_region=us-east-1" \
-        -var="cluster_name=${{ secrets.ECS_CLUSTER_NAME }}" \
-        -var="image_url=${{ secrets.ECR_IMAGE_URL }}" \
-        -var="execution_role_arn=${{ secrets.ECS_EXECUTION_ROLE_ARN }}" \
-        -var="task_role_arn=${{ secrets.ECS_TASK_ROLE_ARN }}" \
-        -var='subnet_ids=${{ secrets.SUBNET_IDS }}' \
-        -var="security_group_id=${{ secrets.SECURITY_GROUP_ID }}"
