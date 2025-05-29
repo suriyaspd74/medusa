@@ -31,3 +31,4 @@ jobs:
     - name: Terraform Apply
       working-directory: infra/terraform
       run: terraform apply -auto-approve -var="image_url=${{ secrets.ECR_IMAGE_URL }}"
+
