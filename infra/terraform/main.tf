@@ -4,7 +4,6 @@ provider "aws" {
 
 resource "aws_ecs_cluster" "this" {
   name               = var.cluster_name
-  capacity_providers = ["FARGATE"]
 }
 
 resource "aws_ecs_task_definition" "app" {
